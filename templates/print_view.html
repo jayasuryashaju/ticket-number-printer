@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Print Preview</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-gradient: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            --bg-color: #f1f5f9;
+            --text-main: #0f172a;
+            --shadow-card: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px 0 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* --- PREVIEW HEADER --- */
+        .preview-header {
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--text-main);
+        }
+        .preview-header h2 { margin: 0; font-size: 20px; font-weight: 700; }
+        .preview-header p { margin: 5px 0 0; font-size: 13px; color: #64748b; }
+
+        /* --- SHEET CONTAINER (SCREEN VIEW) --- */
+        .ticket-sheet {
+            background-color: white;
+            aspect-ratio: 210 / 296; 
+            width: 95%;             
+            max-width: 210mm;       
+            margin: 0 auto 30px;    
+            box-shadow: var(--shadow-card);
+            
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(6, 1fr);
+            
+            --border-w: 2px; 
+        }
+
+        /* Ticket Styling */
+        .ticket {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .header {
+            text-align: center;
+            padding: 2% 0; 
+            border-bottom: 1px solid #ccc;
+            flex-shrink: 0;
+        }
+
+        .shop-name { 
+            font-family: "Times New Roman", serif; 
+            font-weight: 900; 
+            text-transform: uppercase; 
+            color: black; 
+            line-height: 1.1;
+            font-size: clamp(8px, 1.5vw, 14px); 
+        }
+        .details { 
+            font-weight: bold; 
+            color: black; 
+            margin: 1px 0;
+            font-size: clamp(6px, 1.2vw, 10px);
+        }
+        .phone { 
+            font-weight: 800; 
+            color: black;
+            font-size: clamp(8px, 1.4vw, 12px);
+        }
+
+        .number-area {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lottery-number {
+            width: 100%;
+            text-align: center;
+            font-weight: 900;
+            font-family: "Arial Black", "Impact", Arial, sans-serif;
+            background: transparent;
+            line-height: 0.9;
+            
+            /* UPDATED: Reduced from 12vw to 10vw for better mobile fit */
+            font-size: 10vw; 
+        }
+        
+        /* Desktop override: Reduced cap from 85px to 70px for screen viewing */
+        @media (min-width: 800px) {
+            .lottery-number { font-size: 70px; }
+            .ticket-sheet { --border-w: 6px; }
+        }
+
+        /* --- FLOATING BOTTOM BAR (UI) --- */
+        .bottom-bar {
+            position: fixed;
+            bottom: 0; left: 0; width: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            padding: 16px 20px 30px;
+            border-top: 1px solid rgba(0,0,0,0.05);
+            display: flex; gap: 12px;
+            z-index: 100;
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.03);
+        }
+
+        .btn {
+            border: none;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 16px;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-family: 'Inter', sans-serif;
+            text-decoration: none;
+        }
+
+        .btn-secondary { background: #eff6ff; color: var(--primary); }
+        .btn-primary { 
+            background: var(--primary-gradient); 
+            color: white; 
+            flex: 2; 
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3); 
+        }
+        .btn:active { transform: scale(0.97); }
+
+
+        /* --- PRINT SETTINGS --- */
+        @media print {
+            @page { size: A4; margin: 0; }
+            
+            body { 
+                background: white; 
+                padding: 0; 
+                display: block; 
+            }
+
+            .preview-header, .bottom-bar { 
+                display: none !important; 
+            }
+
+            .ticket-sheet {
+                width: 210mm !important;
+                height: 296mm !important;
+                max-width: none;
+                margin: 0;
+                box-shadow: none;
+                aspect-ratio: auto;
+                page-break-after: always;
+            }
+
+            .ticket {
+                border-width: 6px !important;
+            }
+            
+            .shop-name { font-size: 14px !important; }
+            .details { font-size: 10px !important; }
+            .phone { font-size: 12px !important; }
+            
+            .lottery-number {
+                /* UPDATED: Reduced from 85px to 75px for safer printing margins */
+                font-size: 75px !important; 
+            }
+            
+            .header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="preview-header">
+        <h2>Preview Sheets</h2>
+        <p>Review your tickets before printing.</p>
+    </div>
+
+    {% for page in pages %}
+    <div class="ticket-sheet">
+        {% for ticket in page %}
+        <div class="ticket" style="
+            border-right: var(--border-w) double {{ ticket.border_color }}; 
+            border-bottom: var(--border-w) double {{ ticket.border_color }};
+            {% if loop.index0 % 3 == 0 %} border-left: var(--border-w) double {{ ticket.border_color }}; {% endif %}
+            {% if loop.index0 < 3 %} border-top: var(--border-w) double {{ ticket.border_color }}; {% endif %}
+        ">
+            
+            <div class="header" style="background-color: {{ ticket.bg_color }};">
+                <div class="shop-name">JAYASURYA LOTTERIES</div>
+                <div class="details">Y-2943, Y-4329, ADIMALI</div>
+                <div class="phone">9847227810</div>
+            </div>
+            
+            <div class="number-area">
+                <div class="lottery-number" style="color: {{ ticket.font_color }};">{{ ticket.number }}</div>
+            </div>
+        </div>
+        {% endfor %}
+
+        {% for i in range(18 - page|length) %}
+        <div class="ticket" style="border-right: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0;"></div>
+        {% endfor %}
+    </div>
+    {% endfor %}
+
+    <div class="bottom-bar">
+        <a href="/" class="btn btn-secondary">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            Edit
+        </a>
+        <button class="btn btn-primary" onclick="window.print()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2-2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+            Print Now
+        </button>
+    </div>
+
+</body>
+</html>
