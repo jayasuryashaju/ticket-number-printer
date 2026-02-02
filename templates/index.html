@@ -15,7 +15,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manjari:wght@400;700&display=swap" rel="stylesheet">
 
     <style>
-        /* ... (KEEP YOUR EXISTING CSS EXACTLY AS IT WAS) ... */
         :root {
             --primary: #2563eb;
             --primary-gradient: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
@@ -55,7 +54,6 @@
 
         .header-title { display: flex; align-items: center; gap: 10px; }
         
-        /* App Logo in Header */
         .header-logo {
             width: 32px; height: 32px; border-radius: 8px;
         }
@@ -78,17 +76,16 @@
             cursor: pointer; transition: all 0.2s;
         }
         .reset-btn { background: #fee2e2; color: var(--danger); }
-        
-        /* NEW: Install Button (Hidden by default) */
         #installBtn { display: none; background: #dbeafe; color: var(--primary); }
 
         .container { max-width: 600px; margin: 0 auto; padding: 20px; }
 
-        /* ... (KEEP REST OF YOUR CSS: error-banner, series-card, etc.) ... */
         .error-banner { background-color: #fef2f2; border: 1px solid #fee2e2; color: var(--danger); padding: 12px; border-radius: 12px; margin: 0 20px 20px; font-size: 14px; font-weight: 600; display: none; text-align: center; }
+        
         .series-card { background: var(--card-bg); border-radius: var(--radius-card); padding: 24px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05); margin-bottom: 24px; position: relative; border: 2px solid transparent; transition: all 0.3s ease; }
         .series-card.card-error { border-color: var(--danger); box-shadow: 0 4px 20px rgba(239, 68, 68, 0.15); }
         .btn-remove { position: absolute; top: 16px; right: 16px; background: transparent; color: var(--text-sub); border: none; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        
         .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 10px; margin-bottom: 24px; }
         .input-group label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--text-sub); margin-bottom: 6px; }
         .input-wrapper { background: var(--input-bg); border-radius: var(--radius-input); padding: 4px 12px; border: 2px solid transparent; display: flex; align-items: center; }
@@ -97,6 +94,7 @@
         .input-wrapper input { width: 100%; padding: 10px 0; border: none; background: transparent; font-size: 18px; font-weight: 600; color: var(--text-main); outline: none; font-family: 'Inter', sans-serif; }
         .field-error-msg { color: var(--danger); font-size: 11px; font-weight: 600; margin-top: 4px; display: none; }
         .field-error + .field-error-msg { display: block; }
+        
         .color-section { margin-top: 24px; }
         .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
         .section-title { font-size: 13px; font-weight: 600; }
@@ -108,10 +106,24 @@
         .swatch.active::after { opacity: 1; }
         .swatch.none-swatch { background: #ffffff; border: 2px solid #cbd5e1; }
         .swatch.none-swatch::after { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E"); }
+        
         .bottom-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(12px); padding: 16px 20px 30px; border-top: 1px solid rgba(0,0,0,0.05); display: flex; gap: 12px; z-index: 100; }
-        .btn { border: none; border-radius: 16px; font-size: 16px; font-weight: 600; cursor: pointer; padding: 16px; flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; font-family: 'Inter', sans-serif; }
+        .btn { border: none; border-radius: 16px; font-size: 16px; font-weight: 600; cursor: pointer; padding: 16px; flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; font-family: 'Inter', sans-serif; transition: all 0.2s; }
         .btn-secondary { background: #eff6ff; color: var(--primary); }
         .btn-primary { background: var(--primary-gradient); color: white; flex: 2; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3); }
+        
+        /* NEW: Loading State Styles */
+        .btn:disabled { opacity: 0.7; cursor: not-allowed; pointer-events: none; }
+        .btn-spinner {
+            width: 18px; height: 18px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 0.8s ease-in-out infinite;
+            display: inline-block;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 200; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.2s; backdrop-filter: blur(4px); }
         .modal-overlay.open { opacity: 1; pointer-events: auto; }
         .modal-box { background: white; width: 85%; max-width: 320px; padding: 24px; border-radius: 20px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); transform: scale(0.9); transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); text-align: center; }
@@ -135,7 +147,6 @@
             <button id="installBtn" class="icon-btn" onclick="installApp()" title="Install App">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
             </button>
-            
             <button class="lang-btn" onclick="toggleLanguage()">മലയാളം</button>
             <button class="icon-btn reset-btn" onclick="openResetModal()" title="Reset All">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
@@ -210,83 +221,49 @@
     </template>
 
     <script>
-        // --- PWA Logic ---
         let deferredPrompt;
         window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
+            e.preventDefault(); deferredPrompt = e;
             document.getElementById('installBtn').style.display = 'flex';
         });
-
         async function installApp() {
             if (deferredPrompt) {
                 deferredPrompt.prompt();
                 const { outcome } = await deferredPrompt.userChoice;
-                if (outcome === 'accepted') {
-                    deferredPrompt = null;
-                    document.getElementById('installBtn').style.display = 'none';
-                }
+                if (outcome === 'accepted') { deferredPrompt = null; document.getElementById('installBtn').style.display = 'none'; }
             }
         }
+        if ('serviceWorker' in navigator) { navigator.serviceWorker.register('/sw.js'); }
 
-        // Register Service Worker
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/sw.js');
-        }
-
-        // --- LANGUAGE DATA ---
         const LANG = {
             en: {
-                app_title: "Ticket Generator",
-                btn_add: "+ Add Series",
-                btn_generate: "Print",
-                lbl_start: "Start Number",
-                lbl_end: "End Number",
-                lbl_color: "Number Color",
-                lbl_bg: "Background",
-                reset_title: "Clear All Data?",
-                reset_desc: "This will remove all series you have entered. This action cannot be undone.",
-                cancel: "Cancel",
-                yes_reset: "Yes, Clear",
-                err_req: "Required (4 digits)",
-                err_min_series: "You must have at least one series.",
-                err_fix: "Please fix the errors below."
+                app_title: "Ticket Generator", btn_add: "+ Add Series", btn_generate: "Print",
+                lbl_start: "Start Number", lbl_end: "End Number", lbl_color: "Number Color", lbl_bg: "Background Color",
+                reset_title: "Clear All Data?", reset_desc: "This will remove all series you have entered. This action cannot be undone.",
+                cancel: "Cancel", yes_reset: "Yes, Clear", err_req: "Required (4 digits)",
+                err_min_series: "You must have at least one series.", err_fix: "Please fix the errors below.",
+                btn_loading: "Generating..."
             },
             ml: {
-                app_title: "ടിക്കറ്റ് ജനറേറ്റർ",
-                btn_add: "+ പുതിയ സീരീസ്",
-                btn_generate: "പ്രിന്റ്",
-                lbl_start: "തുടങ്ങുന്ന നമ്പർ",
-                lbl_end: "അവസാനിക്കുന്ന നമ്പർ",
-                lbl_color: "നമ്പറിന്റെ നിറം",
-                lbl_bg: "ബാക്ക്ഗ്രൗണ്ട് നിറം",
-                reset_title: "എല്ലാം നീക്കം ചെയ്യണോ?",
-                reset_desc: "ഇത് നിങ്ങൾ നൽകിയ എല്ലാ വിവരങ്ങളും മായ്ച്ചുകളയും.",
-                cancel: "വേണ്ട",
-                yes_reset: "നീക്കം ചെയ്യുക",
-                err_req: "4 അക്കം നിർബന്ധമാണ്",
-                err_min_series: "കുറഞ്ഞത് ഒരു സീരീസ് എങ്കിലും വേണം",
-                err_fix: "തെറ്റുകൾ തിരുത്തുക"
+                app_title: "ടിക്കറ്റ് ജനറേറ്റർ", btn_add: "+ പുതിയ സീരീസ്", btn_generate: "പ്രിന്റ്",
+                lbl_start: "തുടങ്ങുന്ന നമ്പർ", lbl_end: "അവസാനിക്കുന്ന നമ്പർ", lbl_color: "നമ്പറിന്റെ നിറം", lbl_bg: "ബാക്ക്ഗ്രൗണ്ട് നിറം",
+                reset_title: "എല്ലാം നീക്കം ചെയ്യണോ?", reset_desc: "ഇത് നിങ്ങൾ നൽകിയ എല്ലാ വിവരങ്ങളും മായ്ച്ചുകളയും.",
+                cancel: "വേണ്ട", yes_reset: "നീക്കം ചെയ്യുക", err_req: "4 അക്കം നിർബന്ധമാണ്",
+                err_min_series: "കുറഞ്ഞത് ഒരു സീരീസ് എങ്കിലും വേണം", err_fix: "തെറ്റുകൾ തിരുത്തുക",
+                btn_loading: "തയ്യാറാക്കുന്നു..."
             }
         };
 
         let currentLang = 'en';
-
-        // --- CONFIG ---
         const COLORS = { "Red": "#ef4444", "Blue": "#3b82f6", "Green": "#22c55e", "Black": "#0f172a", "Pink": "#e86bcf", "Orange": "#f97316", "Purple": "#a855f7", "Teal": "#14b8a6", "Navy": "#1e3a8a", "Maroon": "#7f1d1d" };
         const BG_COLORS = { "None": "#ffffff", ...COLORS };
 
-        // --- INIT ---
         document.addEventListener('DOMContentLoaded', () => {
             const savedLang = localStorage.getItem('appLang');
-            if(savedLang) {
-                currentLang = savedLang;
-                updateLanguageUI();
-            }
+            if(savedLang) { currentLang = savedLang; updateLanguageUI(); }
             loadFromStorage();
         });
 
-        // --- LOGIC ---
         function toggleLanguage() {
             currentLang = currentLang === 'en' ? 'ml' : 'en';
             localStorage.setItem('appLang', currentLang);
@@ -301,9 +278,7 @@
                 if(LANG[currentLang][key]) el.textContent = LANG[currentLang][key];
             });
         }
-        
         function getText(key) { return LANG[currentLang][key]; }
-
         function openResetModal() { document.getElementById('resetModal').classList.add('open'); }
         function closeResetModal() { document.getElementById('resetModal').classList.remove('open'); }
         function confirmReset() { localStorage.removeItem('lotteryData'); location.reload(); }
@@ -360,9 +335,7 @@
             const container = card.querySelector(`.${type}-swatches`);
             const hiddenInput = card.querySelector(`.${type}-input`);
             const labelDisplay = card.querySelector(`.${type}-name-display`);
-            
-            hiddenInput.value = defaultVal;
-            labelDisplay.innerText = defaultVal;
+            hiddenInput.value = defaultVal; labelDisplay.innerText = defaultVal;
 
             Object.keys(colorMap).forEach(name => {
                 const hex = colorMap[name];
@@ -383,14 +356,14 @@
 
         function showError(msg) {
             const banner = document.getElementById('globalError');
-            banner.textContent = msg;
-            banner.style.display = 'block';
+            banner.textContent = msg; banner.style.display = 'block';
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function submitForm() {
             const form = document.getElementById('mainForm');
             const cards = document.querySelectorAll('.series-card');
+            const submitBtn = document.querySelector('.bottom-bar .btn-primary');
             let isValid = true;
             let firstErrorElement = null;
 
@@ -403,20 +376,18 @@
                 const endInput = card.querySelector('input[name="end_num[]"]');
                 const startVal = parseInt(startInput.value);
                 const endVal = parseInt(endInput.value);
-                const startWrapper = startInput.parentElement;
-                const endWrapper = endInput.parentElement;
                 let cardHasError = false;
 
                 if (!startInput.value || startInput.value.length !== 4) {
-                    startWrapper.classList.add('field-error'); isValid = false; cardHasError = true;
+                    startInput.parentElement.classList.add('field-error'); isValid = false; cardHasError = true;
                     if(!firstErrorElement) firstErrorElement = card;
                 }
                 if (!endInput.value || endInput.value.length !== 4) {
-                    endWrapper.classList.add('field-error'); isValid = false; cardHasError = true;
+                    endInput.parentElement.classList.add('field-error'); isValid = false; cardHasError = true;
                     if(!firstErrorElement) firstErrorElement = card;
                 }
                 if (startVal > endVal) {
-                    startWrapper.classList.add('field-error'); endWrapper.classList.add('field-error');
+                    startInput.parentElement.classList.add('field-error'); endInput.parentElement.classList.add('field-error');
                     isValid = false; cardHasError = true;
                     if(!firstErrorElement) firstErrorElement = card;
                 }
@@ -425,6 +396,22 @@
 
             if (isValid) {
                 saveToStorage();
+                
+                // UX: Loading State
+                submitBtn.disabled = true;
+                const btnText = submitBtn.querySelector('span');
+                const btnIcon = submitBtn.querySelector('svg');
+                
+                // Set Loading Text (English or Malayalam)
+                btnText.textContent = getText('btn_loading');
+                
+                // Hide icon and show spinner
+                if(btnIcon) btnIcon.style.display = 'none';
+                
+                const spinner = document.createElement('div');
+                spinner.className = 'btn-spinner';
+                submitBtn.appendChild(spinner);
+
                 form.submit();
             } else {
                 showError(getText('err_fix'));
