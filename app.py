@@ -32,14 +32,16 @@ def index():
                 if not start_nums[i] or not end_nums[i]:
                     return render_template('index.html', error="Please fill in all number fields.", colors=COLORS)
 
+                # Convert string "0090" to integer 90
                 start = int(start_nums[i])
                 end = int(end_nums[i])
                 f_color_name = font_colors[i]
                 bg_color_name = bg_colors[i]
 
                 # 2. VALIDATION: Check 4 Digits
-                if not (1000 <= start <= 9999) or not (1000 <= end <= 9999):
-                    return render_template('index.html', error=f"Error in Series {i+1}: Numbers must be exactly 4 digits (1000-9999).", colors=COLORS)
+                # Changed 0000 to 0 to prevent Python Syntax Error
+                if not (0 <= start <= 9999) or not (0 <= end <= 9999):
+                    return render_template('index.html', error=f"Error in Series {i+1}: Numbers must be exactly 4 digits (0000-9999).", colors=COLORS)
 
                 # 3. VALIDATION: Check Logical Range
                 if start > end:
@@ -62,7 +64,9 @@ def index():
                 # Generate Tickets
                 for num in range(start, end + 1):
                     all_tickets.append({
-                        "number": num,
+                        # THE FIX: f"{num:04d}" forces it to be 4 digits with leading zeros
+                        # Example: 90 becomes "0090", 5 becomes "0005"
+                        "number": f"{num:04d}", 
                         "font_color": font_hex,
                         "bg_color": bg_hex,
                         "border_color": border_hex
