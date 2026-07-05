@@ -7,7 +7,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Noto+Sans+Malayalam:wght@400;700;900&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -71,23 +71,25 @@
         }
 
         .shop-name { 
-            font-family: "Times New Roman", serif; 
+            font-family: 'Noto Sans Malayalam', 'Inter', sans-serif; 
             font-weight: 900; 
-            text-transform: uppercase; 
-            color: black; 
-            line-height: 1.1;
-            font-size: clamp(8px, 1.5vw, 14px); 
+            color: white; 
+            line-height: 1.2;
+            font-size: clamp(11px, 2.2vw, 20px); 
+            letter-spacing: 0.3px;
         }
         .details { 
-            font-weight: bold; 
-            color: black; 
-            margin: 1px 0;
-            font-size: clamp(6px, 1.2vw, 10px);
+            font-family: 'Noto Sans Malayalam', 'Inter', sans-serif; 
+            font-weight: 700; 
+            color: white; 
+            margin: 2px 0;
+            font-size: clamp(8px, 1.6vw, 14px);
         }
         .phone { 
-            font-weight: 800; 
-            color: black;
-            font-size: clamp(8px, 1.4vw, 12px);
+            font-family: 'Noto Sans Malayalam', 'Inter', sans-serif; 
+            font-weight: 900; 
+            color: white;
+            font-size: clamp(10px, 1.8vw, 16px);
         }
 
         .number-area {
@@ -105,13 +107,12 @@
             background: transparent;
             line-height: 0.9;
             
-            /* UPDATED: Reduced from 12vw to 10vw for better mobile fit */
-            font-size: 10vw; 
+            font-size: 12vw; 
         }
         
         /* Desktop override: Reduced cap from 85px to 70px for screen viewing */
         @media (min-width: 800px) {
-            .lottery-number { font-size: 70px; }
+            .lottery-number { font-size: 85px; }
             .ticket-sheet { --border-w: 6px; }
         }
 
@@ -182,13 +183,12 @@
                 border-width: 6px !important;
             }
             
-            .shop-name { font-size: 14px !important; }
-            .details { font-size: 10px !important; }
-            .phone { font-size: 12px !important; }
+            .shop-name { font-size: 20px !important; }
+            .details { font-size: 14px !important; }
+            .phone { font-size: 16px !important; }
             
             .lottery-number {
-                /* UPDATED: Reduced from 85px to 75px for safer printing margins */
-                font-size: 75px !important; 
+                font-size: 85px !important; 
             }
             
             .header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
@@ -214,8 +214,8 @@
         ">
             
             <div class="header" style="background-color: {{ ticket.bg_color }};">
-                <div class="shop-name">JAYASURYA LOTTERIES</div>
-                <div class="details">Y-2943, Y-4329, ADIMALI</div>
+                <div class="shop-name">ജയസൂര്യ ലോട്ടറീസ്</div>
+                <div class="details">Y-2943, Y-4329, അടിമാലി</div>
                 <div class="phone">9847227810</div>
             </div>
             
