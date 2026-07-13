@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Print Preview</title>
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Noto+Sans+Malayalam:wght@400;700;900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Noto+Sans+Malayalam:wght@400;700;900&display=swap"
+        rel="stylesheet">
 
     <style>
         :root {
@@ -18,7 +21,10 @@
             --shadow-card: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         }
 
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
 
         body {
             font-family: 'Inter', sans-serif;
@@ -36,23 +42,33 @@
             margin-bottom: 20px;
             color: var(--text-main);
         }
-        .preview-header h2 { margin: 0; font-size: 20px; font-weight: 700; }
-        .preview-header p { margin: 5px 0 0; font-size: 13px; color: #64748b; }
+
+        .preview-header h2 {
+            margin: 0;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .preview-header p {
+            margin: 5px 0 0;
+            font-size: 13px;
+            color: #64748b;
+        }
 
         /* --- SHEET CONTAINER (SCREEN VIEW) --- */
         .ticket-sheet {
             background-color: white;
-            aspect-ratio: 210 / 296; 
-            width: 95%;             
-            max-width: 210mm;       
-            margin: 0 auto 30px;    
+            aspect-ratio: 210 / 296;
+            width: 95%;
+            max-width: 210mm;
+            margin: 0 auto 30px;
             box-shadow: var(--shadow-card);
-            
+
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             grid-template-rows: repeat(6, 1fr);
-            
-            --border-w: 2px; 
+
+            --border-w: 2px;
         }
 
         /* Ticket Styling */
@@ -65,29 +81,31 @@
 
         .header {
             text-align: center;
-            padding: 2% 0; 
+            padding: 2% 0;
             border-bottom: 1px solid #ccc;
             flex-shrink: 0;
         }
 
-        .shop-name { 
-            font-family: 'Noto Sans Malayalam', 'Inter', sans-serif; 
-            font-weight: 900; 
-            color: white; 
+        .shop-name {
+            font-family: 'Noto Sans Malayalam', 'Inter', sans-serif;
+            font-weight: 900;
+            color: white;
             line-height: 1.2;
-            font-size: clamp(11px, 2.2vw, 20px); 
+            font-size: clamp(12px, 2.4vw, 22px);
             letter-spacing: 0.3px;
         }
-        .details { 
-            font-family: 'Noto Sans Malayalam', 'Inter', sans-serif; 
-            font-weight: 700; 
-            color: white; 
+
+        .details {
+            font-family: 'Noto Sans Malayalam', 'Inter', sans-serif;
+            font-weight: 700;
+            color: white;
             margin: 2px 0;
             font-size: clamp(8px, 1.6vw, 14px);
         }
-        .phone { 
-            font-family: 'Noto Sans Malayalam', 'Inter', sans-serif; 
-            font-weight: 900; 
+
+        .phone {
+            font-family: 'Noto Sans Malayalam', 'Inter', sans-serif;
+            font-weight: 900;
             color: white;
             font-size: clamp(10px, 1.8vw, 16px);
         }
@@ -106,27 +124,36 @@
             font-family: "Arial Black", "Impact", Arial, sans-serif;
             background: transparent;
             line-height: 0.9;
-            
-            font-size: 12vw; 
+
+            font-size: 12vw;
         }
-        
+
         /* Desktop override: Reduced cap from 85px to 70px for screen viewing */
         @media (min-width: 800px) {
-            .lottery-number { font-size: 85px; }
-            .ticket-sheet { --border-w: 6px; }
+            .lottery-number {
+                font-size: 85px;
+            }
+
+            .ticket-sheet {
+                --border-w: 6px;
+            }
         }
 
         /* --- FLOATING BOTTOM BAR (UI) --- */
         .bottom-bar {
             position: fixed;
-            bottom: 0; left: 0; width: 100%;
+            bottom: 0;
+            left: 0;
+            width: 100%;
             background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             padding: 16px 20px 30px;
-            border-top: 1px solid rgba(0,0,0,0.05);
-            display: flex; gap: 12px;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            gap: 12px;
             z-index: 100;
-            box-shadow: 0 -10px 30px rgba(0,0,0,0.03);
+            box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.03);
         }
 
         .btn {
@@ -145,28 +172,39 @@
             text-decoration: none;
         }
 
-        .btn-secondary { background: #eff6ff; color: var(--primary); }
-        .btn-primary { 
-            background: var(--primary-gradient); 
-            color: white; 
-            flex: 2; 
-            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3); 
+        .btn-secondary {
+            background: #eff6ff;
+            color: var(--primary);
         }
-        .btn:active { transform: scale(0.97); }
+
+        .btn-primary {
+            background: var(--primary-gradient);
+            color: white;
+            flex: 2;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn:active {
+            transform: scale(0.97);
+        }
 
 
         /* --- PRINT SETTINGS --- */
         @media print {
-            @page { size: A4; margin: 0; }
-            
-            body { 
-                background: white; 
-                padding: 0; 
-                display: block; 
+            @page {
+                size: A4;
+                margin: 0;
             }
 
-            .preview-header, .bottom-bar { 
-                display: none !important; 
+            body {
+                background: white;
+                padding: 0;
+                display: block;
+            }
+
+            .preview-header,
+            .bottom-bar {
+                display: none !important;
             }
 
             .ticket-sheet {
@@ -182,20 +220,31 @@
             .ticket {
                 border-width: 6px !important;
             }
-            
-            .shop-name { font-size: 20px !important; }
-            .details { font-size: 14px !important; }
-            .phone { font-size: 16px !important; }
-            
-            .lottery-number {
-                font-size: 85px !important; 
-            }
-            
-            .header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-        }
 
+            .shop-name {
+                font-size: 22px !important;
+            }
+
+            .details {
+                font-size: 14px !important;
+            }
+
+            .phone {
+                font-size: 16px !important;
+            }
+
+            .lottery-number {
+                font-size: 85px !important;
+            }
+
+            .header {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
     </style>
 </head>
+
 <body>
 
     <div class="preview-header">
@@ -212,13 +261,13 @@
             {% if loop.index0 % 3 == 0 %} border-left: var(--border-w) double {{ ticket.border_color }}; {% endif %}
             {% if loop.index0 < 3 %} border-top: var(--border-w) double {{ ticket.border_color }}; {% endif %}
         ">
-            
+
             <div class="header" style="background-color: {{ ticket.bg_color }};">
-                <div class="shop-name">ജയസൂര്യ ലോട്ടറീസ്</div>
-                <div class="details">Y-2943, Y-4329, അടിമാലി</div>
+                <div class="shop-name">Jayasurya Lotteries</div>
+                <div class="details">Y-4329, Adimaly</div>
                 <div class="phone">9847227810</div>
             </div>
-            
+
             <div class="number-area">
                 <div class="lottery-number" style="color: {{ ticket.font_color }};">{{ ticket.number }}</div>
             </div>
@@ -233,14 +282,24 @@
 
     <div class="bottom-bar">
         <a href="/" class="btn btn-secondary">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
             Edit
         </a>
         <button class="btn btn-primary" onclick="window.print()">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2-2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2-2v5a2 2 0 0 1-2 2h-2"></path>
+                <rect x="6" y="14" width="12" height="8"></rect>
+            </svg>
             Print Now
         </button>
     </div>
 
 </body>
+
 </html>
